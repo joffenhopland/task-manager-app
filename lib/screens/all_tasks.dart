@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get.dart';
 import 'package:task_management_app/controllers/data_controller.dart';
+import 'package:task_management_app/screens/view_task.dart';
 import 'package:task_management_app/utils/colors/app_colors.dart';
 import 'package:task_management_app/widgets/button_widget.dart';
 import 'package:task_management_app/widgets/task_widget.dart';
@@ -123,7 +124,7 @@ class AllTasks extends StatelessWidget {
                               context: context,
                               builder: (_) {
                                 return Container(
-                                  height: 450,
+                                  height: 200,
                                   decoration: BoxDecoration(
                                     color: const Color(0xFF2e3253)
                                         .withOpacity(0.4),
@@ -139,10 +140,19 @@ class AllTasks extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        ButtonWidget(
-                                          backgroundcolor: AppColors.mainColor,
-                                          text: 'View',
-                                          textcolor: Colors.white,
+                                        GestureDetector(
+                                          onTap: () {
+                                            Get.off(() => ViewTask(
+                                                id: int.parse(controller
+                                                    .myData[index]["id"]
+                                                    .toString())));
+                                          },
+                                          child: ButtonWidget(
+                                            backgroundcolor:
+                                                AppColors.mainColor,
+                                            text: 'View',
+                                            textcolor: Colors.white,
+                                          ),
                                         ),
                                         SizedBox(height: 20),
                                         ButtonWidget(

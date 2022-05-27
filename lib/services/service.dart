@@ -1,15 +1,21 @@
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:task_management_app/utils/app_constants.dart';
 
 class DataService extends GetConnect implements GetxService {
-  Future<Response> getData() async {
-    Response response = await get("http://localhost:8082/gettasks",
+  Future<Response> getData(String uri) async {
+    if (kDebugMode) {
+      print(AppConstant.BASE_URL + uri);
+    }
+
+    Response response = await get(AppConstant.BASE_URL + uri,
         headers: {'Content-Type': 'application/json; charset=UTF-8'});
 
     return response;
   }
 
-  Future<Response> postData(dynamic body) async {
-    Response response = await post("http://localhost:8082/create", body,
+  Future<Response> postData(String uri, dynamic body) async {
+    Response response = await post(AppConstant.BASE_URL + uri, body,
         headers: {'Content-Type': 'application/json; charset=UTF-8'});
 
     return response;

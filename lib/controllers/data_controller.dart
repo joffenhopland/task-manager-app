@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:task_management_app/services/service.dart';
+import 'package:task_management_app/utils/app_constants.dart';
 
 class DataController extends GetxController {
   DataService service = DataService();
@@ -10,7 +11,7 @@ class DataController extends GetxController {
 
   Future<void> getData() async {
     _isLoading = true;
-    Response response = await service.getData();
+    Response response = await service.getData(AppConstant.GET_TASKS);
     if (response.statusCode == 200) {
       _myData = response.body;
       print("We got the data");
@@ -18,11 +19,26 @@ class DataController extends GetxController {
     } else {
       print("We didn't get any data");
     }
+    _isLoading = false;
+  }
+
+  Future<void> getSingleData(String id) async {
+    _isLoading = true;
+    Response response =
+        await service.getData('${AppConstant.GET_TASK}/?id=$id');
+    if (response.statusCode == 200) {
+      // _myData = response.body;
+      print("We got the single data");
+      update();
+    } else {
+      print("We didn't get any single data");
+    }
+    _isLoading = false;
   }
 
   Future<void> postData(String task, String taskDetail) async {
     _isLoading = true;
-    Response response = await service.postData({
+    Response response = await service.postData(AppConstant.POST_TASK, {
       "task_name": task,
       "task_detail": taskDetail,
     });
