@@ -8,6 +8,8 @@ import 'package:task_management_app/utils/colors/app_colors.dart';
 import 'package:task_management_app/widgets/button_widget.dart';
 import 'package:task_management_app/widgets/task_widget.dart';
 
+import 'edit_task.dart';
+
 class AllTasks extends StatelessWidget {
   const AllTasks({Key? key}) : super(key: key);
 
@@ -43,7 +45,7 @@ class AllTasks extends StatelessWidget {
       body: Column(
         children: [
           Container(
-            padding: const EdgeInsets.only(left: 20, top: 60),
+            padding: const EdgeInsets.only(left: 20, top: 35),
             alignment: Alignment.topLeft,
             child: InkWell(
               onTap: () {
@@ -72,11 +74,11 @@ class AllTasks extends StatelessWidget {
                   Icons.home,
                   color: AppColors.secondaryColor,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 Container(
-                  child: Icon(
+                  child: const Icon(
                     Icons.add,
                     color: Colors.white,
                     size: 20,
@@ -93,7 +95,7 @@ class AllTasks extends StatelessWidget {
                   Icons.calendar_month_sharp,
                   color: AppColors.secondaryColor,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 Text(
@@ -155,10 +157,19 @@ class AllTasks extends StatelessWidget {
                                           ),
                                         ),
                                         SizedBox(height: 20),
-                                        ButtonWidget(
-                                          backgroundcolor: AppColors.mainColor,
-                                          text: 'Edit',
-                                          textcolor: Colors.white,
+                                        GestureDetector(
+                                          onTap: () {
+                                            Get.off(() => EditTask(
+                                                id: int.parse(controller
+                                                    .myData[index]["id"]
+                                                    .toString())));
+                                          },
+                                          child: ButtonWidget(
+                                            backgroundcolor:
+                                                AppColors.mainColor,
+                                            text: 'Edit',
+                                            textcolor: Colors.white,
+                                          ),
                                         ),
                                       ],
                                     ),

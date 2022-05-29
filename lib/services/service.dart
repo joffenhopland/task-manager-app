@@ -20,4 +20,18 @@ class DataService extends GetConnect implements GetxService {
 
     return response;
   }
+
+  Future<Response> updateData(String uri, dynamic body) async {
+    Response response = await put(AppConstant.BASE_URL + uri, body,
+        headers: {'Content-Type': 'application/json; charset=UTF-8'});
+
+    return response;
+  }
+
+  Future<Response> deleteData(String uri) async {
+    Response response = await delete(AppConstant.BASE_URL + uri,
+        headers: {'Content-Type': 'application/json; charset=UTF-8'});
+
+    return response;
+  }
 }
