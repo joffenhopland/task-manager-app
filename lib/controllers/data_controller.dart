@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:task_management_app/services/service.dart';
@@ -20,27 +18,28 @@ class DataController extends GetxController {
     if (response.statusCode == 200) {
       _myData = response.body;
       print("We got the data");
-      update();
     } else {
       print("We didn't get any data");
     }
     _isLoading = false;
+    update();
   }
 
   Future<void> getSingleData(String id) async {
     _isLoading = true;
     Response response = await service.getData('${AppConstant.GET_TASK}/$id');
+    print(response.body);
     if (response.statusCode == 200) {
       if (kDebugMode) {
-        print("We got the single data" + response.body);
-        _singleData = jsonDecode(response.body);
+        print("We got the single data ${response.body}");
+        _singleData = response.body;
         print('_singleData: $_singleData');
       }
-      update();
     } else {
       print("We didn't get any single data");
     }
     _isLoading = false;
+    update();
   }
 
   Future<void> postData(String task, String taskDetail) async {
@@ -50,11 +49,11 @@ class DataController extends GetxController {
       "task_detail": taskDetail,
     });
     if (response.statusCode == 200) {
-      update();
       print('data post successful');
     } else {
       print('data post failed');
     }
+    update();
   }
 
   Future<void> updateData(String task, String taskDetail, String id) async {
@@ -65,22 +64,29 @@ class DataController extends GetxController {
       "task_detail": taskDetail,
     });
     if (response.statusCode == 200) {
-      update();
       print('data update successful');
     } else {
       print('data update failed');
     }
+    update();
   }
 
-  Future<void> deleteData(String task, String taskDetail, String id) async {
+  Future<void> deleteData(String id) async {
     _isLoading = true;
+    update();
     Response response =
-        await service.deleteData('${AppConstant.UPDATE_TASK}/$id');
+        await service.deleteData('${AppConstant.DELETE_TASK}/$id');
+    print(response.headers);
     if (response.statusCode == 200) {
-      update();
-      print('data update successful');
+      print(response);
+      // update();
+      print('data delete successful');
     } else {
-      print('data update failed');
+      print('data delete failed');
     }
+    await Future.delayed(Duration(seconds: 1), () {
+      _isLoading = false;
+      update();
+    });
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:task_management_app/screens/all_tasks.dart';
+import 'package:task_management_app/routes/routes.dart';
 import 'package:task_management_app/utils/colors/app_colors.dart';
 import 'package:task_management_app/widgets/button_widget.dart';
 import 'package:task_management_app/widgets/textfield_widget.dart';
@@ -104,10 +104,7 @@ class EditTask extends StatelessWidget {
                               nameController.text.trim(),
                               detailController.text.trim(),
                               controller.singleData["id"]);
-                          Get.to(
-                            () => const AllTasks(),
-                            transition: Transition.circularReveal,
-                          );
+                          Get.offNamed(RoutesClass.getAllTasksRoute());
                         }
                       },
                       child: ButtonWidget(

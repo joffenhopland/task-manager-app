@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:task_management_app/routes/routes.dart';
 import 'package:task_management_app/screens/add_task.dart';
 import 'package:task_management_app/utils/colors/app_colors.dart';
 import 'package:task_management_app/widgets/button_widget.dart';
@@ -62,11 +63,12 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             InkWell(
               onTap: () {
-                Get.to(
-                  () => const AllTasks(),
-                  transition: Transition.fade,
-                  duration: const Duration(milliseconds: 250),
-                );
+                // Get.to(
+                //   () => const AllTasks(),
+                // transition: Transition.fade,
+                // duration: const Duration(milliseconds: 250),
+                // );
+                Get.toNamed(RoutesClass.getAllTasksRoute());
               },
               child: ButtonWidget(
                   backgroundcolor: Colors.white,
